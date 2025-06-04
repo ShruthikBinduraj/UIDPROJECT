@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NAAS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .carouselimg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 15px;
+    }
+    .box {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 5px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .thumbnail-img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      transition: transform 0.2s;
+    }
+    .thumbnail-img:hover {
+      transform: scale(1.03);
+    }
+    #paymentMessage {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+    .liked {
+      color: red !important;
+    }
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+      background-color: #000;
+    }
+    .active-product {
+      border: 2px solid #007bff;
+    }
+    .tab-content {
+      margin-top: 20px;
+    }
+    .navbar .btn, .navbar input {
+      margin-right: 0 !important;
+      padding: 0.25rem 0.5rem;
+    }
+    #searchInput {
+      max-width: 180px;
+      font-size: 14px;
+      padding: 2px 6px;
+      margin: 0;
+    }
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.4rem;
+      padding-right: 0.75rem;
+      user-select: none;
+    }
+    .login-btn {
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar bg-light px-2">
+  <div class="container-fluid d-flex align-items-center">
+    <span class="navbar-brand">NAAS</span>
+
+    <!-- Search group -->
+    <div class="d-flex align-items-center" style="gap: 0;">
+      <input class="form-control" type="search" placeholder="Search" id="searchInput" style="border-top-right-radius: 0; border-bottom-right-radius: 0;" />
+      <button class="btn btn-outline-secondary" onclick="searchProducts()" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">🔍</button>
+    </div>
+
+    <!-- Right side buttons -->
+    <div class="ms-auto d-flex align-items-center">
+      <button class="btn btn-outline-danger" id="wishlistBtn" onclick="toggleLike(this)">❤️</button>
+      <button class="btn btn-outline-secondary" id="cartButton" onclick="viewCart()">🛒</button>
+      <a href="builder.html" class="btn btn-outline-info">Builders Info</a>
+      <a href="unwanted.html" class="btn btn-outline-primary login-btn">👤 Login</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Carousel -->
+<div id="carouselExampleControls" class="carousel slide my-4" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="iphone.jpeg" class="carouselimg d-block w-100" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img src="wash.jpeg" class="carouselimg d-block w-100" alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img src="camera.jpg" class="carouselimg d-block w-100" alt="Third slide">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<!-- Tabs -->
+<ul class="nav nav-tabs justify-content-center my-3">
+  <li class="nav-item"><a class="nav-link active" href="#clothing" data-bs-toggle="tab">Clothing</a></li>
+  <li class="nav-item"><a class="nav-link" href="#homekitchen" data-bs-toggle="tab">Home & Kitchen</a></li>
+  <li class="nav-item"><a class="nav-link" href="#appliances" data-bs-toggle="tab">Appliances</a></li>
+  <li class="nav-item"><a class="nav-link" href="#grocery" data-bs-toggle="tab">Grocery</a></li>
+</ul>
+
+<!-- Tab Content -->
+<div class="container my-4 tab-content">
+  <!-- Clothing -->
+  <div class="tab-pane fade show active" id="clothing">
+    <div class="row">
+      <div class="col-md-3 mb-3"><img src="jordan.jpg" class="thumbnail-img" alt="Jordan Shoes" onclick="loadProduct(0, 'clothing')"></div>
+      <div class="col-md-3 mb-3"><img src="track.jpeg" class="thumbnail-img" alt="Track Pants" onclick="loadProduct(1, 'clothing')"></div>
+      <div class="col-md-3 mb-3"><img src="denim.jpg" class="thumbnail-img" alt="Denim Jacket" onclick="loadProduct(2, 'clothing')"></div>
+      <div class="col-md-3 mb-3"><img src="shorts.jpg" class="thumbnail-img" alt="Running Shorts" onclick="loadProduct(3, 'clothing')"></div>
+    </div>
+  </div>
+
+  <!-- Home & Kitchen -->
+  <div class="tab-pane fade" id="homekitchen">
+    <div class="row">
+      <div class="col-md-3 mb-3"><img src="table.jpg" class="thumbnail-img" alt="Dining Table" onclick="loadProduct(4, 'homekitchen')"></div>
+      <div class="col-md-3 mb-3"><img src="sofa.jpg" class="thumbnail-img" alt="Sofa Set" onclick="loadProduct(5, 'homekitchen')"></div>
+    </div>
+  </div>
+
+  <!-- Appliances -->
+  <div class="tab-pane fade" id="appliances">
+    <div class="row">
+      <div class="col-md-3 mb-3"><img src="wash.jpeg" class="thumbnail-img" alt="Washing Machine" onclick="loadProduct(6, 'appliances')"></div>
+      <div class="col-md-3 mb-3"><img src="oven.jpg" class="thumbnail-img" alt="Microwave Oven" onclick="loadProduct(7, 'appliances')"></div>
+    </div>
+  </div>
+
+  <!-- Grocery -->
+  <div class="tab-pane fade" id="grocery">
+    <div class="row">
+      <div class="col-md-3 mb-3"><img src="rice.jpg" class="thumbnail-img" alt="Rice Bag" onclick="loadProduct(8, 'grocery')"></div>
+      <div class="col-md-3 mb-3"><img src="wheat.jpg" class="thumbnail-img" alt="Wheat Bag" onclick="loadProduct(9, 'grocery')"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Product Details Section -->
+<div class="container my-4">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="box text-center">
+        <img id="mainProductImage" src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246" class="img-fluid mb-3" alt="Main Product">
+        <div class="d-flex justify-content-around">
+          <button class="btn btn-outline-success" id="addToCartBtn" onclick="addToCart()">Add to Cart</button>
+          <button class="btn btn-outline-danger" id="productLikeBtn" onclick="toggleProductLike()">❤️</button>
+          <button class="btn btn-success" onclick="initiatePayment()">Buy</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="box">
+        <h2 id="productTitle">Levi's Jeans</h2>
+        <p class="text-success fs-4" id="productPrice">₹2,319 <span class="text-muted fs-6 text-decoration-line-through">₹2,899</span> 20% OFF</p>
+        <p><span class="text-warning fs-4" id="productRating">★★★★☆</span></p>
+        <div class="mb-3">
+          <select class="form-select mb-2" id="sizeSelect1">
+            <option>Size</option>
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+          </select>
+          <select class="form-select" id="qtySelect1">
+            <option>Qty</option>
+            <option>1</option>
+            <option>2</option>
+          </select>
+        </div>
+        <h5>Product Details:</h5>
+        <ul id="productSpecs">
+          <li>Fit: Regular</li>
+          <li>Length: Full</li>
+          <li>Fabric: Denim</li>
+          <li>Sold by: Levi's</li>
+        </ul>
+        <h5 class="mt-4">Customer Reviews</h5>
+        <div id="reviews">
+          <p><strong>John Doe:</strong> Great product, fits perfectly!</p>
+          <p><strong>Jane Smith:</strong> Good quality denim, highly recommend.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cart Modal -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cartModalLabel">Your Cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="cartItems">
+        Your cart is empty.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="initiatePayment()">Proceed to Payment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Message -->
+<div class="container" id="paymentMessage" style="display:none;"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Product data
+  const products = [
+    {
+      id: 0,
+      category: 'clothing',
+      title: "Jordan Shoes",
+      price: 4500,
+      oldPrice: 5000,
+      discount: 10,
+      rating: "★★★★☆",
+      image: "jordan.jpg",
+      specs: ["Color: Red/Black", "Size: 9", "Material: Leather", "Brand: Jordan"],
+      reviews: [
+        "Awesome shoes, very comfortable.",
+        "Looks great and fits well."
+      ]
+    },
+    {
+      id: 1,
+      category: 'clothing',
+      title: "Track Pants",
+      price: 1200,
+      oldPrice: 1500,
+      discount: 20,
+      rating: "★★★☆☆",
+      image: "track.jpeg",
+      specs: ["Material: Polyester", "Size: M, L, XL", "Brand: Puma"],
+      reviews: [
+        "Very soft fabric.",
+        "Good for running."
+      ]
+    },
+    {
+      id: 2,
+      category: 'clothing',
+      title: "Denim Jacket",
+      price: 2300,
+      oldPrice: 2800,
+      discount: 18,
+      rating: "★★★★☆",
+      image: "denim.jpg",
+      specs: ["Fit: Regular", "Material: Denim", "Brand: Levi's"],
+      reviews: [
+        "Classic denim look.",
+        "Warm and stylish."
+      ]
+    },
+    {
+      id: 3,
+      category: 'clothing',
+      title: "Running Shorts",
+      price: 900,
+      oldPrice: 1200,
+      discount: 25,
+      rating: "★★★☆☆",
+      image: "shorts.jpg",
+      specs: ["Material: Nylon", "Size: M, L", "Brand: Nike"],
+      reviews: [
+        "Lightweight and breathable.",
+        "Nice for jogging."
+      ]
+    },
+    {
+      id: 4,
+      category: 'homekitchen',
+      title: "Dining Table",
+      price: 15000,
+      oldPrice: 18000,
+      discount: 17,
+      rating: "★★★★☆",
+      image: "table.jpg",
+      specs: ["Material: Wood", "Seats: 6", "Brand: HomeDeco"],
+      reviews: [
+        "Solid build quality.",
+        "Perfect for my dining room."
+      ]
+    },
+    {
+      id: 5,
+      category: 'homekitchen',
+      title: "Sofa Set",
+      price: 22000,
+      oldPrice: 26000,
+      discount: 15,
+      rating: "★★★★☆",
+      image: "sofa.jpg",
+      specs: ["Material: Leather", "Seats: 3", "Brand: ComfortPlus"],
+      reviews: [
+        "Very comfy and stylish.",
+        "Worth the price."
+      ]
+    },
+    {
+      id: 6,
+      category: 'appliances',
+      title: "Washing Machine",
+      price: 12000,
+      oldPrice: 13500,
+      discount: 11,
+      rating: "★★★★☆",
+      image: "wash.jpeg",
+      specs: ["Capacity: 7kg", "Type: Front Load", "Brand: LG"],
+      reviews: [
+        "Cleans clothes well.",
+        "Quiet operation."
+      ]
+    },
+    {
+      id: 7,
+      category: 'appliances',
+      title: "Microwave Oven",
+      price: 7000,
+      oldPrice: 8500,
+      discount: 18,
+      rating: "★★★☆☆",
+      image: "oven.jpg",
+      specs: ["Power: 800W", "Capacity: 20L", "Brand: Samsung"],
+      reviews: [
+        "Easy to use.",
+        "Heats food quickly."
+      ]
+    },
+    {
+      id: 8,
+      category: 'grocery',
+      title: "Rice Bag",
+      price: 2000,
+      oldPrice: 2200,
+      discount: 9,
+      rating: "★★★★★",
+      image: "rice.jpg",
+      specs: ["Weight: 10kg", "Type: Basmati", "Brand: Organic Farm"],
+      reviews: [
+        "Good quality rice.",
+        "Tastes great."
+      ]
+    },
+    {
+      id: 9,
+      category: 'grocery',
+      title: "Wheat Bag",
+      price: 1800,
+      oldPrice: 2100,
+      discount: 14,
+      rating: "★★★★☆",
+      image: "wheat.jpg",
+      specs: ["Weight: 10kg", "Type: Whole Grain", "Brand: Healthy Harvest"],
+      reviews: [
+        "Fresh wheat.",
+        "Good for making bread."
+      ]
+    }
+  ];
+
+  let cart = [];
+  let likedProducts = new Set();
+  let currentProductId = 0;
+  let currentCategory = "clothing";
+
+  function loadProduct(index, category) {
+    currentCategory = category;
+    currentProductId = products.findIndex(p => p.category === category && p.id === index);
+    if (currentProductId === -1) {
+      currentProductId = 0;
+    }
+    const product = products[currentProductId];
+
+    document.getElementById('mainProductImage').src = product.image;
+    document.getElementById('productTitle').textContent = product.title;
+    document.getElementById('productPrice').innerHTML = `₹${product.price} <span class="text-muted fs-6 text-decoration-line-through">₹${product.oldPrice}</span> ${product.discount}% OFF`;
+    document.getElementById('productRating').textContent = product.rating;
+
+    const specsList = document.getElementById('productSpecs');
+    specsList.innerHTML = '';
+    product.specs.forEach(spec => {
+      const li = document.createElement('li');
+      li.textContent = spec;
+      specsList.appendChild(li);
+    });
+
+    const reviewsDiv = document.getElementById('reviews');
+    reviewsDiv.innerHTML = '';
+    product.reviews.forEach(review => {
+      const p = document.createElement('p');
+      p.textContent = review;
+      reviewsDiv.appendChild(p);
+    });
+
+    document.getElementById('sizeSelect1').selectedIndex = 0;
+    document.getElementById('qtySelect1').selectedIndex = 0;
+
+    updateLikeButton();
+    updateAddToCartButton();
+  }
+
+  function addToCart() {
+    const product = products[currentProductId];
+    if (!cart.find(item => item.id === product.id)) {
+      cart.push(product);
+      alert(product.title + " added to cart.");
+    } else {
+      alert(product.title + " is already in cart.");
+    }
+    updateAddToCartButton();
+  }
+
+  function viewCart() {
+    const cartItemsDiv = document.getElementById('cartItems');
+    if (cart.length === 0) {
+      cartItemsDiv.textContent = "Your cart is empty.";
+    } else {
+      cartItemsDiv.innerHTML = '';
+      cart.forEach(item => {
+        const div = document.createElement('div');
+        div.textContent = item.title + " - ₹" + item.price;
+        cartItemsDiv.appendChild(div);
+      });
+    }
+    const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+    cartModal.show();
+  }
+
+  function toggleProductLike() {
+    const product = products[currentProductId];
+    if (likedProducts.has(product.id)) {
+      likedProducts.delete(product.id);
+    } else {
+      likedProducts.add(product.id);
+    }
+    updateLikeButton();
+  }
+
+  function toggleLike(button) {
+    button.classList.toggle('liked');
+    if (button.classList.contains('liked')) {
+      alert("Added to wishlist!");
+    }
+  }
+
+  function updateLikeButton() {
+    const likeBtn = document.getElementById('productLikeBtn');
+    const product = products[currentProductId];
+    if (likedProducts.has(product.id)) {
+      likeBtn.classList.add('liked');
+    } else {
+      likeBtn.classList.remove('liked');
+    }
+  }
+
+  function updateAddToCartButton() {
+    const product = products[currentProductId];
+    const addToCartBtn = document.getElementById('addToCartBtn');
+    if (cart.find(item => item.id === product.id)) {
+      addToCartBtn.textContent = "Added";
+      addToCartBtn.disabled = true;
+    } else {
+      addToCartBtn.textContent = "Add to Cart";
+      addToCartBtn.disabled = false;
+    }
+  }
+
+  function initiatePayment() {
+    const messageDiv = document.getElementById('paymentMessage');
+    if (cart.length === 0) {
+      alert("Your cart is empty. Add products before buying.");
+      return;
+    }
+    messageDiv.style.display = "block";
+    messageDiv.textContent = "Payment process initiated. Thank you for your purchase!";
+    cart = [];
+    updateAddToCartButton();
+    const modalEl = document.getElementById('cartModal');
+    const modalInstance = bootstrap.Modal.getInstance(modalEl);
+    if (modalInstance) modalInstance.hide();
+  }
+
+  function searchProducts() {
+    const searchTerm = document.getElementById('searchInput').value.trim();
+    if (searchTerm) {
+      alert("Search functionality is coming soon. You searched for: " + searchTerm);
+    } else {
+      alert("Please enter a search term.");
+    }
+  }
+
+  window.onload = function() {
+    loadProduct(0, 'clothing');
+    document.getElementById('wishlistBtn').addEventListener('click', function() {
+      this.classList.toggle('liked');
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAAS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .builder-card {
+      border: 2px solid #ccc; /* Add a border around each builder card */
+      padding: 15px;
+      border-radius: 8px;
+      margin: 10px 0; /* Add margin to separate the cards */
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .builder-card img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+    }
+    .builder-card h4 {
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+    }
+    .builder-card p {
+      font-size: 1rem;
+      color: #555;
+    }
+    /* Footer styling */
+    footer {
+      background-color: #82c1ff;
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid #ddd;
+      margin-top: 30px;
+    }
+    footer a {
+      color: #007bff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<nav class="navbar bg-light px-3">
+  <div class="container-fluid d-flex align-items-center">
+    <a class="navbar-brand me-3" style="font-size: 50px;" href="#">NAAS</a>
+    <div class="d-flex flex-grow-1 align-items-center justify-content-center"> 
+      <input class="form-control me-1" type="search" placeholder="Search" id="searchInput" style="max-width: 500px;">
+      <button class="btn btn-outline-secondary me-2" onclick="handleSearch()">🔍</button>
+    </div>
+    <div class="d-flex align-items-center">
+      <button class="btn btn-outline-danger me-1" onclick="showLiked()">❤</button>
+      <button class="btn btn-outline-secondary me-1" id="cartButton" onclick="viewCart()">🛒</button>
+      <a href="Builder.html" class="btn btn-outline-success me-1">🛠 Builder</a>
+      <a href="unwanted.html" class="btn btn-outline-primary">👤 Login</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Navigation -->
+<ul class="nav nav-tabs justify-content-center my-3">
+  <li class="nav-item"><a class="nav-link active" href="#">Clothing</a></li>
+  <li class="nav-item"><a class="nav-link" href="#">Home & Kitchen</a></li>
+  <li class="nav-item"><a class="nav-link" href="#">Appliances</a></li>
+  <li class="nav-item"><a class="nav-link" href="#">Grocery</a></li>
+</ul>
+
+<!-- Builders Info -->
+<div class="container mt-5">
+  <h1 class="text-center mb-5">Builders Info</h1>
+  <div class="row">
+    <!-- Builder 1 -->
+    <div class="col-md-3">
+      <div class="builder-card">
+       
+        <a href="RESUME.html">
+          <h4>SHRUTHIK BINDURAJ</h4>
+        </a>
+        
+      </div>
+    </div>
+
+    <!-- Builder 2 -->
+    <div class="col-md-3">
+      <div class="builder-card">
+       
+        <a href="Naveen.html">
+          <h4>Naveen Raj R</h4>
+        </a>
+       
+      </div>
+    </div>
+
+    <!-- Builder 3 -->
+    <div class="col-md-3">
+      <div class="builder-card">
+        
+        <a href="resume1.html">
+          <h4>ABHINAV P MADHU</h4>
+        </a>
+       
+      </div>
+    </div>
+
+    <!-- Builder 4 -->
+    <div class="col-md-3">
+      <div class="builder-card">
+       
+        <a href="resume2.html">
+          <h4>Adhithyan S</h4>
+        </a>
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 NAAS. All rights reserved.</p>
+  <div>
+    <a href="#">Privacy Policy</a> | 
+    <a href="#">Terms of Service</a> | 
+    <a href="#">Contact Us</a>
+  </div>
+</footer>
+
+<!-- Cart Modal -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Your Cart</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="cartItemsContainer"></div>
+        <div class="modal-footer">
+          <button class="btn btn-success" onclick="initiatePayment()">Checkout</button>
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Liked Items Modal -->
+  <div class="modal fade" id="likedModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Liked Products</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="likedItemsContainer"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+<script src="Script 1.js"></script>
+</html>
